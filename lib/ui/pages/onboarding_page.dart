@@ -1,6 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ewallet/shared/shared_theme.dart';
+import 'package:ewallet/ui/pages/sign_in_page.dart';
+import 'package:ewallet/ui/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/button.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -94,40 +98,27 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   currentIndex == 2
                       ? Column(
                           children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: 50,
-                              child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: purpleColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(56),
+                            CustomButton(
+                                text: "Get Started",
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const SignUpPage(),
                                     ),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Get Started',
-                                    style: whiteTextSyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: semiBold,
-                                    ),
-                                  )),
-                            ),
+                                  );
+                                }),
                             const SizedBox(height: 20),
-                            SizedBox(
-                              width: double.infinity,
-                              height: 24,
-                              child: TextButton(
-                                  style: TextButton.styleFrom(
-                                      padding: const EdgeInsets.all(0)),
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Sign In',
-                                    style: greyTextStyle.copyWith(
-                                      fontSize: 16,
+                            TextButtonWidget(
+                                text: "Sign In",
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const SignInPage(),
                                     ),
-                                  )),
-                            ),
+                                  );
+                                }),
                           ],
                         )
                       : Row(
@@ -165,27 +156,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               ),
                             ),
                             const Spacer(),
-                            SizedBox(
-                              width: 150,
-                              height: 50,
-                              child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: purpleColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(56),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    carouselController.nextPage();
-                                  },
-                                  child: Text(
-                                    'Continue',
-                                    style: whiteTextSyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: semiBold,
-                                    ),
-                                  )),
-                            )
+                            CustomButton(
+                                width: 150,
+                                text: "Continue",
+                                onPressed: () {
+                                  carouselController.nextPage();
+                                }),
                           ],
                         )
                 ],
