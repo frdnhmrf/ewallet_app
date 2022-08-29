@@ -35,12 +35,16 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.data.toJson());
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailed) {
+            print(state.e.toString());
             showCustomSnackBar(context, state.e);
-          } else {
+          }
+
+          if (state is AuthSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -102,17 +106,17 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: lightBackgrounColor,
-                          image: selectedImage == null
-                              ? null
-                              : DecorationImage(
-                                  image: FileImage(
-                                    File(selectedImage!.path),
-                                  ),
-                                ),
-                        ),
-                        child: selectedImage == null
+                            shape: BoxShape.circle,
+                            color: lightBackgrounColor,
+                            image: selectedImage != null
+                                ? DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: FileImage(
+                                      File(selectedImage!.path),
+                                    ),
+                                  )
+                                : null),
+                        child: selectedImage != null
                             ? null
                             : Center(
                                 child: Image.asset(
@@ -144,7 +148,7 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
                                   widget.data.copyWith(
                                     ktp: selectedImage == null
                                         ? null
-                                        : 'data:image/png,base64,${base64Encode(File(selectedImage!.path).readAsBytesSync())}',
+                                        : 'data:image/png;base64,${base64Encode(File(selectedImage!.path).readAsBytesSync())}',
                                   ),
                                 ),
                               );
@@ -165,7 +169,9 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
                 onPressed: () {
                   context.read<AuthBloc>().add(
                         AuthRegister(
-                          widget.data,
+                          widget.data.copyWith(
+                            ktp: null,
+                          ),
                         ),
                       );
                 },

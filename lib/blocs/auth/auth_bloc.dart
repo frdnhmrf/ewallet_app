@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ewallet/models/sign_in_form_model.dart';
 import 'package:ewallet/models/sign_up_form_model.dart';
 import 'package:ewallet/models/user_model.dart';
 
@@ -30,9 +31,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         try {
           emit(AuthLoading());
 
-          final res = await AuthService().register(event.data);
+          final user = await AuthService().register(event.data);
+          emit(AuthSuccess(user));
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
+      if (event is AuthLogin) {
+        try {
+          emit(AuthLoading());
+
+          final res = await AuthService().login(event.data);
           emit(AuthSuccess(res));
         } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
+      if (event is AuthGetCurrentUser) {
+        try {
+          emit(AuthLoading());
+
+          final SignInFormModel data = await AuthService().getCredential();
+          final UserModel user = await AuthService().login(data);
+
+          emit(AuthSuccess(user));
+        } catch (e) {
+          print(e.toString());
           emit(AuthFailed(e.toString()));
         }
       }

@@ -98,7 +98,9 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Column(
                 children: [
                   TextFormFieldWidget(
-                      text: "Full Name", controller: nameContorller),
+                    text: "Full Name",
+                    controller: nameContorller,
+                  ),
                   const SizedBox(
                     height: 16,
                   ),

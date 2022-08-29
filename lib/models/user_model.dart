@@ -39,7 +39,6 @@ class UserModel {
       );
 
   UserModel copyWith({
-    int? id,
     String? name,
     String? email,
     int? balance,

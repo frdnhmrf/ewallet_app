@@ -16,7 +16,7 @@ void showCustomSnackBar(
 }
 
 Future<XFile?> selectImage() async {
-  final ImagePicker picker = ImagePicker();
+  ImagePicker? picker = ImagePicker();
   XFile? selectedImage = await picker.pickImage(source: ImageSource.gallery);
 
   return selectedImage;

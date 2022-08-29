@@ -35,6 +35,7 @@ class _SignUpUploadProfilePageState extends State<SignUpUploadProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.data.toJson());
     return Scaffold(
       body: ListView(
         padding: const EdgeInsets.symmetric(
@@ -135,7 +136,7 @@ class _SignUpUploadProfilePageState extends State<SignUpUploadProfilePage> {
                                 pin: pinController.text,
                                 profilePicture: selectedImage == null
                                     ? null
-                                    : 'data:image/png,base64,${base64Encode(File(selectedImage!.path).readAsBytesSync())}',
+                                    : 'data:image/png;base64,${base64Encode(File(selectedImage!.path).readAsBytesSync())}',
                               ),
                             ),
                           ),

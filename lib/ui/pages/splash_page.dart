@@ -1,44 +1,47 @@
-import 'dart:async';
-
+import 'package:ewallet/blocs/auth/auth_bloc.dart';
+import 'package:ewallet/ui/pages/home_page.dart';
+import 'package:ewallet/ui/pages/onboarding_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Onboarding_page.dart';
-
-class SpalshPage extends StatefulWidget {
-  const SpalshPage({Key? key}) : super(key: key);
-
-  @override
-  State<SpalshPage> createState() => _SpalshPageState();
-}
-
-class _SpalshPageState extends State<SpalshPage> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 2), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const OnboardingPage(),
-        ),
-      );
-    });
-  }
+class SplashPage extends StatelessWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: Container(
-          width: 155,
-          height: 50,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/icon_logo.png',
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSuccess) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+                (route) => false);
+          }
+
+          if (state is AuthFailed) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OnboardingPage(),
+                ),
+                (route) => false);
+          }
+        },
+        child: Center(
+          child: Container(
+            width: 155,
+            height: 50,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/icon_logo.png',
+                ),
+                fit: BoxFit.cover,
               ),
-              fit: BoxFit.cover,
             ),
           ),
         ),

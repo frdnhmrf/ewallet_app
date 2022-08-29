@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(),
+          create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
         ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SpalshPage(),
+        home: SplashPage(),
       ),
     );
   }

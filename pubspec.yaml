@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_secure_storage: ^6.0.0
   google_fonts: ^3.0.0
   http: ^0.13.5
   image_picker: ^0.8.5+3
