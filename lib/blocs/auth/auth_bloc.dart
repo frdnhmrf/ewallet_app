@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ewallet/models/sign_up_form_model.dart';
+import 'package:ewallet/models/user_model.dart';
 
 import '../../services/auth_service.dart';
 
@@ -19,6 +21,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           } else {
             emit(const AuthFailed('Email sudah terpakai'));
           }
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
+      if (event is AuthRegister) {
+        try {
+          emit(AuthLoading());
+
+          final res = await AuthService().register(event.data);
+          emit(AuthSuccess(res));
         } catch (e) {
           emit(AuthFailed(e.toString()));
         }
