@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ewallet/blocs/auth/auth_bloc.dart';
 import 'package:ewallet/models/sign_up_form_model.dart';
+import 'package:ewallet/ui/pages/sign_up_success_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../shared/shared_method.dart';
 import '../../shared/shared_theme.dart';
 import '../widgets/button.dart';
-import 'home_page.dart';
 
 class SignUpUploadKtpPage extends StatefulWidget {
   final SignUpFormModel data;
@@ -35,12 +35,10 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.data.toJson());
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailed) {
-            print(state.e.toString());
             showCustomSnackBar(context, state.e);
           }
 
@@ -48,7 +46,7 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomePage(),
+                builder: (context) => const SignUpSuccessPage(),
               ),
               (route) => false,
             );
@@ -169,9 +167,7 @@ class _SignUpUploadKtpPageState extends State<SignUpUploadKtpPage> {
                 onPressed: () {
                   context.read<AuthBloc>().add(
                         AuthRegister(
-                          widget.data.copyWith(
-                            ktp: null,
-                          ),
+                          widget.data,
                         ),
                       );
                 },

@@ -34,8 +34,6 @@ class AuthService {
         body: data.toJson(),
       );
 
-      print(res.body);
-
       if (res.statusCode == 200) {
         UserModel user = UserModel.fromJson(jsonDecode(res.body));
         user = user.copyWith(
@@ -60,8 +58,6 @@ class AuthService {
         body: data.toJson(),
       );
 
-      print(res.body);
-
       if (res.statusCode == 200) {
         UserModel user = UserModel.fromJson(jsonDecode(res.body));
         user = user.copyWith(password: data.password);
@@ -80,40 +76,25 @@ class AuthService {
   Future<void> storeCredentialToStorage(UserModel user) async {
     try {
       const storage = FlutterSecureStorage();
-      final options = IOSOptions(accountName: user.token);
-      await storage.write(
-        iOptions: options,
-        key: 'token',
-        value: user.token,
-      );
-      await storage.write(
-        iOptions: options,
-        key: 'email',
-        value: user.email,
-      );
-      await storage.write(
-        iOptions: options,
-        key: 'password',
-        value: user.password,
-      );
+      await storage.write(key: 'token', value: user.token);
+      await storage.write(key: 'email', value: user.email);
+      await storage.write(key: 'password', value: user.password);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<SignInFormModel> getCredential() async {
+  Future<SignInFormModel> getCredentialFromLocal() async {
     try {
       const storage = FlutterSecureStorage();
-      String? valueEmail = await storage.read(key: 'email');
-      String? valuePassword = await storage.read(key: 'password');
+      Map<String, String> values = await storage.readAll();
 
-      // Map<String, String> values = await storage.readAll();
-      if (valueEmail == null || valuePassword == null) {
+      if (values['email'] == null || values['password'] == null) {
         throw 'Email atau password kosong';
       } else {
         final SignInFormModel data = SignInFormModel(
-          email: valueEmail,
-          password: valuePassword,
+          email: values['email'],
+          password: values['password'],
         );
 
         return data;
@@ -124,13 +105,13 @@ class AuthService {
   }
 
   Future<String> getToken() async {
-    String token = "";
+    String token = '';
 
     const storage = FlutterSecureStorage();
     String? value = await storage.read(key: 'token');
 
     if (value != null) {
-      token = "Bearer $value";
+      token = 'Bearer $value';
     }
 
     return token;

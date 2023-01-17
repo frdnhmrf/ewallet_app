@@ -112,6 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 16,
                   ),
                   TextFormFieldWidget(
+                    obscureText: true,
                     text: "Password",
                     controller: passwordContorller,
                   ),
