@@ -1,4 +1,5 @@
 import 'package:ewallet/shared/shared_theme.dart';
+import 'package:ewallet/ui/pages/profile_page.dart';
 import 'package:ewallet/ui/widgets/home_friendly_tips_item.dart';
 import 'package:ewallet/ui/widgets/home_send_again_item.dart';
 import 'package:ewallet/ui/widgets/home_service_item.dart';
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         children: [
-          buildProfile(),
+          buildProfile(context),
           buildWalletCard(),
           buildLevel(),
           buildService(),
@@ -88,7 +89,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildProfile() {
+  Widget buildProfile(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(
           top: 40,
@@ -117,28 +118,38 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              height: 60,
-              width: 60,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: AssetImage('assets/image_profile.png')),
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: whiteColor,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
                   ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check_circle,
-                      color: greenColor,
-                      size: 14,
+                );
+              },
+              child: Container(
+                height: 60,
+                width: 60,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage('assets/image_profile.png')),
+                ),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: whiteColor,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.check_circle,
+                        color: greenColor,
+                        size: 14,
+                      ),
                     ),
                   ),
                 ),
