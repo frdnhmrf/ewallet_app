@@ -1,3 +1,4 @@
+import 'package:ewallet/shared/shared_theme.dart';
 import 'package:ewallet/ui/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +18,21 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData(
+            backgroundColor: lightBackgrounColor,
+            appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(color: blackColor),
+              backgroundColor: lightBackgrounColor,
+              elevation: 0,
+              centerTitle: true,
+              titleTextStyle: blackTextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: semiBold,
+              ),
+            )),
         debugShowCheckedModeBanner: false,
-        home: SplashPage(),
+        home: const SplashPage(),
       ),
     );
   }

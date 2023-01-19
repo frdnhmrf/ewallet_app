@@ -15,25 +15,28 @@ class ProfileMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 30),
-      child: Row(
-        children: [
-          Image.asset(
-            iconUrl,
-            width: 24,
-            height: 24,
-          ),
-          const SizedBox(
-            width: 18,
-          ),
-          Text(
-            title,
-            style: blackTextStyle.copyWith(
-              fontWeight: medium,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 30),
+        child: Row(
+          children: [
+            Image.asset(
+              iconUrl,
+              width: 24,
+              height: 24,
             ),
-          )
-        ],
+            const SizedBox(
+              width: 18,
+            ),
+            Text(
+              title,
+              style: blackTextStyle.copyWith(
+                fontWeight: medium,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
