@@ -12,7 +12,7 @@ class SignUpFormModel {
     this.password,
     this.pin,
     this.profilePicture,
-    this.ktp = ' ',
+    this.ktp = '',
   });
 
   Map<String, dynamic> toJson() {

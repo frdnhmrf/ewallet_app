@@ -157,11 +157,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             ),
                             const Spacer(),
                             CustomButton(
-                                width: 150,
-                                text: "Continue",
-                                onPressed: () {
+                              width: 150,
+                              text: "Continue",
+                              onPressed: () {
+                                if (carouselController != null) {
                                   carouselController.nextPage();
-                                }),
+                                }
+                              },
+                            ),
                           ],
                         )
                 ],
